@@ -1,8 +1,14 @@
-import React from 'react'
 
-function NowPlaying() {
+function NowPlaying({ selectedTrack }) {
+  if (!selectedTrack) return;
+
   return (
-    <div>NowPlaying</div>
+    <>
+      <div>
+        <h2>Now Playing: {selectedTrack.title}</h2>
+        <p>by: {selectedTrack.artist}</p>
+      </div>
+    </>
   )
 }
 

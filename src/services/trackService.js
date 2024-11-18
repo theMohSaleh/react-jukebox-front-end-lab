@@ -9,3 +9,47 @@ export const index = async () => {
         console.log(error);
     }
 }
+
+export const create = async (trackFormData) => {
+    try {
+        const res = await fetch(BASE_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(trackFormData),
+        });
+        const track = await res.json();
+        return track;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const update = async (trackFormData, trackId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${trackId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(trackFormData),
+        });
+        const track = await res.json();
+        return track;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const remove = async (trackId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${trackId}`, {
+            method: 'DELETE',
+        });
+        const track = await res.json();
+        return track;
+    } catch (error) {
+        console.log(error);
+    }
+}

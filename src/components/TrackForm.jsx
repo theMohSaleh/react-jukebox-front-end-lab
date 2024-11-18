@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const TrackForm = ({ trackList }) => {
-  const navigate = useNavigate();
+const TrackForm = ({ trackList, handleAddTrack, handleUpdateTrack }) => {
+
   const { trackId } = useParams();
 
   const initialState = trackId ?
-  // if editing track, populate form with track data
+    // if editing track, populate form with track data
     trackList.find(
       (track) => track._id === trackId
     )
@@ -26,10 +26,14 @@ const TrackForm = ({ trackList }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/');
-    
+    // if editing data, call update
+    if (trackId) {
+      handleUpdateTrack(formData, trackId)
+    } else {
+      // call create otherwise
+      handleAddTrack(formData)
+    }
   }
-
 
   return (
     <div>
@@ -49,7 +53,7 @@ const TrackForm = ({ trackList }) => {
           value={formData.artist}
           onChange={handleChange}
         />
-        <button type="submit">Add New Track</button>
+        <button type="submit">{trackId ? 'Edit Track' : 'Add New Track'}</button>
       </form>
     </div>
   );
